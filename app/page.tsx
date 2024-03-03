@@ -1,32 +1,50 @@
+import { getTokenUrl } from "frames.js";
 import {
   FrameButton,
   FrameContainer,
   FrameImage,
-  FrameInput,
   FrameReducer,
   NextServerPageProps,
-  getFrameMessage,
   getPreviousFrame,
   useFramesReducer,
 } from "frames.js/next/server";
 import Link from "next/link";
-import { DEBUG_HUB_OPTIONS } from "./debug/constants";
-
-const baseUrl = process.env.NEXT_PUBLIC_HOST || "http://localhost:3000";
+import { zora } from "viem/chains";
 
 type State = {
-  active: string;
-  total_button_presses: number;
+  pageIndex: number;
 };
 
-const initialState = { active: "1", total_button_presses: 0 };
+const nfts: {
+  src: string;
+  tokenUrl: string;
+}[] = [
+    {
+      src: "https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeigs6jkboqjn4admqyr2nz7googp6r6xezedx54yaowrjtq5sad22y&w=1080&q=75",
+      tokenUrl: getTokenUrl({
+        address: "0xa702a0bad6a5fc5d1e19614b56a5719c1a7e8932",
+        chain: zora,
+        tokenId: "2",
+      }),
+    },
+    {
+      src: "https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeibpgna6dmlpvmhmg6eueyyolzcxlkutltbm7g77a36scrsw4v4khy&w=1080&q=75",
+      tokenUrl: getTokenUrl({
+        address: "0xa702a0bad6a5fc5d1e19614b56a5719c1a7e8932",
+        chain: zora,
+        tokenId: "1",
+      }),
+    },
+  ];
+const initialState: State = { pageIndex: 0 };
 
 const reducer: FrameReducer<State> = (state, action) => {
+  const buttonIndex = action.postBody?.untrustedData.buttonIndex;
+
   return {
-    total_button_presses: state.total_button_presses + 1,
-    active: action.postBody?.untrustedData.buttonIndex
-      ? String(action.postBody?.untrustedData.buttonIndex)
-      : "1",
+    pageIndex: buttonIndex
+      ? (state.pageIndex + (buttonIndex === 2 ? 1 : -1)) % nfts.length
+      : state.pageIndex,
   };
 };
 
@@ -36,80 +54,26 @@ export default async function Home({
   searchParams,
 }: NextServerPageProps) {
   const previousFrame = getPreviousFrame<State>(searchParams);
-
-  const frameMessage = await getFrameMessage(previousFrame.postBody, {
-    ...DEBUG_HUB_OPTIONS,
-  });
-
-  if (frameMessage && !frameMessage?.isValid) {
-    throw new Error("Invalid frame payload");
-  }
-
-  const [state, dispatch] = useFramesReducer<State>(
-    reducer,
-    initialState,
-    previousFrame
-  );
-
-  // Here: do a server side side effect either sync or async (using await), such as minting an NFT if you want.
-  // example: load the users credentials & check they have an NFT
-
-  console.log("info: state is:", state);
+  const [state] = useFramesReducer<State>(reducer, initialState, previousFrame);
 
   // then, when done, return next frame
   return (
-    <div className="p-4">
-      frames.js starter kit. The Template Frame is on this page, it&apos;s in
-      the html meta tags (inspect source).{" "}
-      <Link href={`/debug?url=${baseUrl}`} className="underline">
-        Debug
-      </Link>
+    <div>
+      Mint button example <Link href="/debug">Debug</Link>
       <FrameContainer
-        postUrl="/frames"
-        pathname="/"
+        pathname="/examples/mint-button"
+        postUrl="/examples/mint-button/frames"
         state={state}
         previousFrame={previousFrame}
       >
-        {/* <FrameImage src="https://framesjs.org/og.png" /> */}
-        <FrameImage aspectRatio="1.91:1">
-          <div tw="w-full h-full bg-slate-700 text-white justify-center items-center flex flex-col">
-            <div tw="flex flex-row">
-              {frameMessage?.inputText ? frameMessage.inputText : "Hello world"}
-            </div>
-            {frameMessage && (
-              <div tw="flex flex-col">
-                <div tw="flex">
-                  Requester is @{frameMessage.requesterUserData?.username}{" "}
-                </div>
-                <div tw="flex">
-                  Requester follows caster:{" "}
-                  {frameMessage.requesterFollowsCaster ? "true" : "false"}
-                </div>
-                <div tw="flex">
-                  Caster follows requester:{" "}
-                  {frameMessage.casterFollowsRequester ? "true" : "false"}
-                </div>
-                <div tw="flex">
-                  Requester liked cast:{" "}
-                  {frameMessage.likedCast ? "true" : "false"}
-                </div>
-                <div tw="flex">
-                  Requester recasted cast:{" "}
-                  {frameMessage.recastedCast ? "true" : "false"}
-                </div>
-              </div>
-            )}
-          </div>
-        </FrameImage>
-        <FrameInput text="put some text here" />
-        <FrameButton>
-          {state?.active === "1" ? "Active" : "Inactive"}
-        </FrameButton>
-        <FrameButton>
-          {state?.active === "2" ? "Active" : "Inactive"}
-        </FrameButton>
-        <FrameButton action="link" target={`https://www.google.com`}>
-          External
+        <FrameImage
+          src={nfts[state.pageIndex]!.src}
+          aspectRatio="1:1"
+        ></FrameImage>
+        <FrameButton>←</FrameButton>
+        <FrameButton>→</FrameButton>
+        <FrameButton action="mint" target={nfts[state.pageIndex]!.tokenUrl}>
+          Mint
         </FrameButton>
       </FrameContainer>
     </div>
