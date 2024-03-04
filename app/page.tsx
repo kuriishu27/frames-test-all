@@ -24,7 +24,6 @@ const nfts: {
       tokenUrl: getTokenUrl({
         address: "0xa702a0bad6a5fc5d1e19614b56a5719c1a7e8932",
         chain: zora,
-        tokenId: "2",
       }),
     },
     {
@@ -32,7 +31,6 @@ const nfts: {
       tokenUrl: getTokenUrl({
         address: "0xa702a0bad6a5fc5d1e19614b56a5719c1a7e8932",
         chain: zora,
-        tokenId: "1",
       }),
     },
   ];
@@ -61,8 +59,8 @@ export default async function Home({
     <div>
       Mint button example <Link href="/debug">Debug</Link>
       <FrameContainer
-        pathname="/examples/mint-button"
-        postUrl="/examples/mint-button/frames"
+        postUrl="/frames"
+        pathname="/"
         state={state}
         previousFrame={previousFrame}
       >
