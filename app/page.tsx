@@ -10,7 +10,6 @@ import {
 } from "frames.js/next/server";
 import Link from "next/link";
 import { zora } from "viem/chains";
-
 type State = {
   pageIndex: number;
 };
@@ -19,6 +18,14 @@ const nfts: {
   src: string;
   tokenUrl: string;
 }[] = [
+
+    {
+      src: "https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeihod7ajntqhyibybkgnrlmgifhcjar45ra3ct4jimfmaokpokz5zu&w=1080&q=75",
+      tokenUrl: getTokenUrl({
+        address: "0xa702a0bad6a5fc5d1e19614b56a5719c1a7e8932",
+        chain: zora,
+      }),
+    },
     {
       src: "https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeigs6jkboqjn4admqyr2nz7googp6r6xezedx54yaowrjtq5sad22y&w=1080&q=75",
       tokenUrl: getTokenUrl({
@@ -54,7 +61,6 @@ export default async function Home({
   const previousFrame = getPreviousFrame<State>(searchParams);
   const [state] = useFramesReducer<State>(reducer, initialState, previousFrame);
 
-  // then, when done, return next frame
   return (
     <div>
       Mint button example <Link href="/debug">Debug</Link>

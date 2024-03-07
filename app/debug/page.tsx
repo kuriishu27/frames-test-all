@@ -11,6 +11,7 @@ import { MockHubConfig } from "./components/mock-hub-config";
 
 import dynamic from "next/dynamic";
 import { type FrameActionHubContext } from "frames.js";
+
 const LoginWindow = dynamic(() => import("./components/create-signer"), {
   ssr: false,
 });
@@ -38,6 +39,7 @@ export default function Page({
       setUrlInput(url);
     }
   }, [url]);
+
   const authState = useFarcasterIdentity();
   const frameState = useFrame({
     homeframeUrl: url,
