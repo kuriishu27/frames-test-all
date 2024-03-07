@@ -63,7 +63,7 @@ export default async function Home({
 
   return (
     <div>
-      <h1>Leovido's gallery</h1>
+      <h1>Leovido gallery</h1>
       <p>What are you doing here anyways? Go get back to Warpcast!</p>
       <FrameContainer
         postUrl="/frames"
