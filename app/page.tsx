@@ -63,7 +63,8 @@ export default async function Home({
 
   return (
     <div>
-      Mint button example <Link href="/debug">Debug</Link>
+      <h1>Leovido's gallery</h1>
+      <p>What are you doing here anyways? Go get back to Warpcast!</p>
       <FrameContainer
         postUrl="/frames"
         pathname="/"
