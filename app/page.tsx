@@ -52,7 +52,6 @@ const reducer: FrameReducer<State> = (state, action) => {
   };
 };
 
-// This is a react server component only
 export default async function Home({
   params,
   searchParams,
@@ -63,7 +62,7 @@ export default async function Home({
   return (
     <div>
       <h1>Leovido gallery</h1>
-      <p>What are you doing here anyways? Go get back to Warpcast!</p>
+      <p>What are you doing here anyways? Get back to Warpcast!</p>
 
       <FrameContainer
         postUrl="/frames"
