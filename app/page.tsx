@@ -23,6 +23,7 @@ const nfts: {
       tokenUrl: getTokenUrl({
         address: "0xde94e589406eb064ca0cdbe22939201312aa0656",
         chain: base,
+        tokenId: "premint-3"
       }),
     },
     {
@@ -30,6 +31,7 @@ const nfts: {
       tokenUrl: getTokenUrl({
         address: "0xde94e589406eb064ca0cdbe22939201312aa0656",
         chain: base,
+        tokenId: "premint-2"
       }),
     },
     {
@@ -37,6 +39,7 @@ const nfts: {
       tokenUrl: getTokenUrl({
         address: "0xde94e589406eb064ca0cdbe22939201312aa0656",
         chain: base,
+        tokenId: "premint-1"
       }),
     },
   ];
