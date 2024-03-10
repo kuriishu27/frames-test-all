@@ -21,9 +21,9 @@ const nfts: {
     {
       src: "https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeihod7ajntqhyibybkgnrlmgifhcjar45ra3ct4jimfmaokpokz5zu&w=1080&q=75",
       tokenUrl: getTokenUrl({
-        address: "0xde94e589406eb064ca0cdbe22939201312aa0656",
+        address: "0x800243201fb33b86219315f5f44e1795dfb5d97a",
         chain: base,
-        tokenId: "premint-3"
+        tokenId: "28"
       }),
     },
     {
