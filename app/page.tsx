@@ -76,7 +76,7 @@ export default async function Home({
             )}
           </div>
         </FrameImage>
-        <FrameButton>{walletAddress ? "Next" : "Check"}</FrameButton>
+        <FrameButton>{walletAddress ? "Next" : "Done"}</FrameButton>
       </FrameContainer>
     </div >
   );
