@@ -61,13 +61,13 @@ export default async function Home({
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div style={{ backgroundColor: "#01153B", width: "100%", height: "100%", paddingLeft: 8, paddingRight: 8, textAlign: 'center', fontFamily: 'sans-serif' }}>
+          <div tw="flex flex-col" style={{ backgroundColor: "#01153B", width: "100%", height: "100%", paddingLeft: 8, paddingRight: 8, textAlign: 'center', fontFamily: 'sans-serif' }}>
             {walletAddress === undefined && <div tw="flex">
               <p style={{ color: "#F4D35E", fontSize: 18 }}>You will receive an NFT to install the ham widget <br></br>
                 Limited to only 100 users</p>
             </div>}
             {walletAddress && (
-              <div>
+              <div tw="flex">
                 <p style={{ color: "#F4D35E", fontSize: 18 }}>Thank you! <br></br>
                   You will receive your NFT for the ham widget in the following address:
                   {walletAddress}
