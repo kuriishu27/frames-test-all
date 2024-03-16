@@ -61,16 +61,20 @@ export default async function Home({
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div style={{ paddingLeft: 8, paddingRight: 8 }} tw="flex flex-col">
-            <div tw="flex">
-              Thank you. You will receive your NFT for the ham widget in the following address:
-            </div>
+          <div style={{ paddingLeft: 8, paddingRight: 8, textAlign: 'center' }} tw="flex flex-col">
+            {walletAddress === undefined && <div tw="flex">
+              You will receive an NFT to install the ham widget\n
+              Limited to only 100 users
+            </div>}
             {walletAddress && (
-              <div tw="flex">{walletAddress}</div>
+              <div tw="flex">Thank you.\n
+                You will receive your NFT for the ham widget in the following address:
+                {walletAddress}
+              </div>
             )}
           </div>
         </FrameImage>
-        <FrameButton>Check</FrameButton>
+        <FrameButton>{walletAddress ? "Next" : "Check"}</FrameButton>
       </FrameContainer>
     </div>
   );
