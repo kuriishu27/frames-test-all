@@ -63,22 +63,34 @@ export default async function Home({
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div tw="flex flex-col" style={{ backgroundColor: "#01153B", width: "100%", height: "100%", paddingLeft: 16, paddingRight: 16, textAlign: 'center', fontFamily: 'sans-serif' }}>
-            {walletAddress === undefined && <div tw="flex">
-              <p style={{ color: "#F4D35E", fontSize: 40 }}>You will receive an NFT to install the ham widget</p>
-              <p style={{ color: "#F4D35E", fontSize: 40 }}>Limited to only 100 users</p>
-            </div>}
+          <div tw="flex flex-col" style={{ backgroundColor: "#01153B", width: "100%", height: "100%", paddingLeft: 16, paddingRight: 16, textAlign: 'center', fontFamily: 'sans-serif', fontWeight: 500 }}>
+            {walletAddress === undefined &&
+              <>
+                <div tw="flex flex-col">
+                  <div tw="flex">
+                    <p style={{ color: "#F4D35E", fontSize: 50 }}>Opt-in for ham widget (iOS only)</p>
+                  </div>
+                  <div tw="flex">
+                    <p style={{ color: "#F4D35E", fontSize: 50 }}>Limited to only 100 users</p>
+                  </div>
+                </div>
+              </>
+            }
             {walletAddress && (
-              <div tw="flex">
-                <p style={{ color: "#F4D35E", fontSize: 40 }}>Thank you!</p>
-                <p style={{ color: "#F4D35E", fontSize: 40 }}>You will receive your NFT for the ham widget in the following address:
-                  {walletAddress}
-                </p>
+              <div tw="flex flex-col">
+                <div tw="flex">
+                  <p style={{ color: "#F4D35E", fontSize: 40 }}>Thank you!</p>
+                </div>
+                <div>
+                  <p style={{ color: "#F4D35E", fontSize: 40 }}>You will receive your NFT for the ham widget in the following address:
+                    {walletAddress}
+                  </p>
+                </div>
               </div>
             )}
           </div>
         </FrameImage>
-        <FrameButton>{walletAddress ? "Next" : "Done"}</FrameButton>
+        <FrameButton>{walletAddress ? "Done" : "Next"}</FrameButton>
       </FrameContainer>
     </div >
   );
