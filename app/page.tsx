@@ -52,7 +52,7 @@ export default async function Home({
   }
 
   return (
-    <div>
+    <div style={{ backgroundColor: "#01153B" }}>
       <FrameContainer
         postUrl="/frames"
         pathname="/"
@@ -61,7 +61,7 @@ export default async function Home({
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div style={{ backgroundColor: "#01153B", paddingLeft: 8, paddingRight: 8, textAlign: 'center', fontFamily: 'sans-serif' }} tw="flex flex-col">
+          <div style={{ paddingLeft: 8, paddingRight: 8, textAlign: 'center', fontFamily: 'sans-serif' }} tw="flex flex-col">
             {walletAddress === undefined && <div tw="flex">
               <p style={{ color: "#F4D35E", fontSize: 18 }}>You will receive an NFT to install the ham widget <br></br>
                 Limited to only 100 users</p>
