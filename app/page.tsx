@@ -30,6 +30,7 @@ export default async function Home({
 
   let fid: number | undefined;
   let walletAddress: string | undefined;
+  let walletAddresses: string[];
 
   if (
     previousFrame.postBody &&
@@ -45,10 +46,8 @@ export default async function Home({
 
     if (frameMessage && frameMessage?.isValid) {
       fid = frameMessage?.requesterFid;
-      walletAddress =
-        frameMessage?.requesterCustodyAddress.length > 0
-          ? frameMessage?.requesterCustodyAddress
-          : frameMessage.requesterCustodyAddress;
+      walletAddresses =
+        frameMessage?.requesterVerifiedAddresses
     }
   }
 
@@ -62,14 +61,12 @@ export default async function Home({
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div tw="flex flex-col">
+          <div style={{ paddingBlock: 8 }} tw="flex flex-col">
             <div tw="flex">
-              This frame gets the interactor&apos;s wallet address or FID
-              depending on the client protocol.
+              Thank you. You will receive your NFT for the ham widget in the following address:
             </div>
-            {fid && <div tw="flex">FID: {fid}</div>}
             {walletAddress && (
-              <div tw="flex">Wallet Address: {walletAddress}</div>
+              <div tw="flex">{walletAddress}</div>
             )}
           </div>
         </FrameImage>
