@@ -26,22 +26,6 @@ const nfts: {
         tokenId: "28"
       }),
     },
-    {
-      src: "https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeigs6jkboqjn4admqyr2nz7googp6r6xezedx54yaowrjtq5sad22y&w=1080&q=75",
-      tokenUrl: getTokenUrl({
-        address: "0xde94e589406eb064ca0cdbe22939201312aa0656",
-        chain: base,
-        tokenId: "premint-2"
-      }),
-    },
-    {
-      src: "https://remote-image.decentralized-content.com/image?url=https%3A%2F%2Fipfs.decentralized-content.com%2Fipfs%2Fbafybeibpgna6dmlpvmhmg6eueyyolzcxlkutltbm7g77a36scrsw4v4khy&w=1080&q=75",
-      tokenUrl: getTokenUrl({
-        address: "0xde94e589406eb064ca0cdbe22939201312aa0656",
-        chain: base,
-        tokenId: "premint-1"
-      }),
-    },
   ];
 const initialState: State = { pageIndex: 0 };
 
