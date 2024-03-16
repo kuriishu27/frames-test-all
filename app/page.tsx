@@ -61,7 +61,7 @@ export default async function Home({
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div style={{ paddingBlock: 8 }} tw="flex flex-col">
+          <div style={{ paddingLeft: 8, paddingRight: 8 }} tw="flex flex-col">
             <div tw="flex">
               Thank you. You will receive your NFT for the ham widget in the following address:
             </div>
