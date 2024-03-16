@@ -46,8 +46,8 @@ export default async function Home({
 
     if (frameMessage && frameMessage?.isValid) {
       fid = frameMessage?.requesterFid;
-      walletAddresses =
-        frameMessage?.requesterVerifiedAddresses
+      walletAddress =
+        frameMessage?.requesterCustodyAddress.length > 0 ? frameMessage?.requesterCustodyAddress : frameMessage?.requesterCustodyAddress
     }
   }
 
