@@ -52,7 +52,7 @@ export default async function Home({
   }
 
   return (
-    <div style={{ backgroundColor: "#01153B" }}>
+    <div style={{ backgroundColor: "#01153B", width: "100%", height: "100%" }}>
       <FrameContainer
         postUrl="/frames"
         pathname="/"
