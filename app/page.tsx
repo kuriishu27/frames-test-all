@@ -47,7 +47,9 @@ export default async function Home({
     if (frameMessage && frameMessage?.isValid) {
       fid = frameMessage?.requesterFid;
       walletAddress =
-        frameMessage?.requesterCustodyAddress.length > 0 ? frameMessage?.requesterCustodyAddress : frameMessage?.requesterCustodyAddress
+        frameMessage?.requesterCustodyAddress.length > 0 ?
+          frameMessage?.requesterCustodyAddress :
+          frameMessage?.requesterCustodyAddress
     }
   }
 
@@ -61,15 +63,15 @@ export default async function Home({
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div tw="flex flex-col" style={{ backgroundColor: "#01153B", width: "100%", height: "100%", paddingLeft: 8, paddingRight: 8, textAlign: 'center', fontFamily: 'sans-serif' }}>
+          <div tw="flex flex-col" style={{ backgroundColor: "#01153B", width: "100%", height: "100%", paddingLeft: 16, paddingRight: 16, textAlign: 'center', fontFamily: 'sans-serif' }}>
             {walletAddress === undefined && <div tw="flex">
-              <p style={{ color: "#F4D35E", fontSize: 40 }}>You will receive an NFT to install the ham widget <br></br>
-                Limited to only 100 users</p>
+              <p style={{ color: "#F4D35E", fontSize: 40 }}>You will receive an NFT to install the ham widget</p>
+              <p style={{ color: "#F4D35E", fontSize: 40 }}>Limited to only 100 users</p>
             </div>}
             {walletAddress && (
               <div tw="flex">
-                <p style={{ color: "#F4D35E", fontSize: 40 }}>Thank you! <br></br>
-                  You will receive your NFT for the ham widget in the following address:
+                <p style={{ color: "#F4D35E", fontSize: 40 }}>Thank you!</p>
+                <p style={{ color: "#F4D35E", fontSize: 40 }}>You will receive your NFT for the ham widget in the following address:
                   {walletAddress}
                 </p>
               </div>
