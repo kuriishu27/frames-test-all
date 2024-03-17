@@ -8,6 +8,15 @@ import {
   getPreviousFrame,
 } from "frames.js/next/server";
 import { getXmtpFrameMessage, isXmtpFrameActionPayload } from "frames.js/xmtp";
+import { DEBUG_HUB_OPTIONS } from "./debug/constants";
+
+type State = {
+  walletAddress?: string
+};
+
+const initialState: State = {
+  walletAddress: undefined
+} as const;
 
 const acceptedProtocols: ClientProtocolId[] = [
   {
@@ -25,7 +34,7 @@ export default async function Home({
   params,
   searchParams,
 }: NextServerPageProps) {
-  const previousFrame = getPreviousFrame(searchParams);
+  const previousFrame = getPreviousFrame<State>(searchParams);
 
   let fid: number | undefined;
   let walletAddress: string | undefined;
@@ -56,7 +65,7 @@ export default async function Home({
       <FrameContainer
         postUrl="/frames"
         pathname="/"
-        state={{}}
+        state={initialState}
         previousFrame={previousFrame}
         accepts={acceptedProtocols}
       >
@@ -66,7 +75,7 @@ export default async function Home({
               <>
                 <div tw="flex flex-col">
                   <div tw="flex">
-                    <h2 style={{ color: "#F4D35E", fontSize: 50, textAlign: "center" }}>Opt-in for ham widget (iOS only)</h2>
+                    <p style={{ color: "#F4D35E", fontSize: 50, textAlign: 'center' }}>Opt-in for ham widget (iOS only)</p>
                   </div>
                   <div tw="flex">
                     <p style={{ color: "#F4D35E", fontSize: 50, textAlign: 'center' }}>Limited to only 100 users</p>
@@ -77,12 +86,12 @@ export default async function Home({
             {walletAddress !== undefined && (
               <div tw="flex flex-col">
                 <div tw="flex">
-                  <p style={{ color: "#F4D35E", fontSize: 40 }}>
+                  <p style={{ color: "#F4D35E", fontSize: 40, textAlign: "center" }}>
                     {walletAddress.toLowerCase()} added to allowlist.
                   </p>
                 </div>
                 <div tw="flex">
-                  <p style={{ color: "#F4D35E", fontSize: 40 }}>Limited to first 100</p>
+                  <p style={{ color: "#F4D35E", fontSize: 40, textAlign: "center" }}>Limited to first 100</p>
                 </div>
               </div>
             )}

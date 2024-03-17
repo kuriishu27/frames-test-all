@@ -14,6 +14,7 @@
     "@farcaster/core": "^0.14.3",
     "@noble/ed25519": "^2.0.0",
     "@radix-ui/react-accordion": "^1.1.2",
+    "@vercel/blob": "^0.22.1",
     "@vercel/kv": "^1.0.1",
     "@xmtp/frames-validator": "^0.5.0",
     "@zoralabs/zdk": "^2.4.0",
