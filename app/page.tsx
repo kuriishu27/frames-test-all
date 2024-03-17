@@ -8,7 +8,6 @@ import {
   getPreviousFrame,
 } from "frames.js/next/server";
 import { getXmtpFrameMessage, isXmtpFrameActionPayload } from "frames.js/xmtp";
-import { DEBUG_HUB_OPTIONS } from "./debug/constants";
 
 const acceptedProtocols: ClientProtocolId[] = [
   {
@@ -41,7 +40,6 @@ export default async function Home({
   } else {
     const frameMessage = await getFrameMessage(
       previousFrame.postBody,
-      DEBUG_HUB_OPTIONS
     );
 
     if (frameMessage && frameMessage?.isValid) {
@@ -63,15 +61,15 @@ export default async function Home({
         accepts={acceptedProtocols}
       >
         <FrameImage>
-          <div tw="flex flex-col" style={{ backgroundColor: "#01153B", width: "100%", height: "100%", paddingLeft: 16, paddingRight: 16, textAlign: 'center', fontFamily: 'sans-serif', fontWeight: 500 }}>
+          <div tw="flex flex-col justify-center items-center" style={{ backgroundColor: "#01153B", width: "100%", height: "100%", paddingLeft: 16, paddingRight: 16, textAlign: 'center', fontFamily: 'sans-serif', fontWeight: 500 }}>
             {walletAddress === undefined &&
               <>
                 <div tw="flex flex-col">
                   <div tw="flex">
-                    <p style={{ color: "#F4D35E", fontSize: 50 }}>Opt-in for ham widget (iOS only)</p>
+                    <h2 style={{ color: "#F4D35E", fontSize: 50, textAlign: "center" }}>Opt-in for ham widget (iOS only)</h2>
                   </div>
                   <div tw="flex">
-                    <p style={{ color: "#F4D35E", fontSize: 50 }}>Limited to only 100 users</p>
+                    <p style={{ color: "#F4D35E", fontSize: 50, textAlign: 'center' }}>Limited to only 100 users</p>
                   </div>
                 </div>
               </>
@@ -81,7 +79,7 @@ export default async function Home({
                 <div tw="flex">
                   <p style={{ color: "#F4D35E", fontSize: 40 }}>Thank you!</p>
                 </div>
-                <div>
+                <div tw="flex">
                   <p style={{ color: "#F4D35E", fontSize: 40 }}>You will receive your NFT for the ham widget in the following address:
                     {walletAddress}
                   </p>
@@ -90,7 +88,7 @@ export default async function Home({
             )}
           </div>
         </FrameImage>
-        <FrameButton>{walletAddress ? "Done" : "Next"}</FrameButton>
+        <FrameButton>{walletAddress === undefined ? "Next" : "Done"}</FrameButton>
       </FrameContainer>
     </div >
   );
