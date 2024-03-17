@@ -141,7 +141,7 @@ export default async function Home({
 
             frame = initialFrame;
           } else {
-            frame = errorFrame(existingRequest.error);
+            frame = initialFrame
           }
           break;
       }
