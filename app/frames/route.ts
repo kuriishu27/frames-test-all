@@ -21,7 +21,6 @@ export async function POST(req: NextRequest): Promise<Response> {
   const frameMessage = await getFrameMessage(body.postBody, {
     ...DEBUG_HUB_OPTIONS,
   });
-  console.warn(frameMessage, 'hereeee')
   const uniqueId = `fid:${frameMessage.requesterFid}`;
 
   try {
@@ -37,11 +36,21 @@ export async function POST(req: NextRequest): Promise<Response> {
       { ex: MAXIMUM_KV_RESULT_LIFETIME_IN_SECONDS }
     );
 
-    return NextResponse.json({
-      data: walletAddress,
-      status: "success",
-      timestamp: new Date().getTime(),
-    });
+    return new NextResponse(`
+        <!DOCTYPE html>
+        <html lang="en">
+            <head>
+                <title>Congrats you are on the $MILO whitelist.</title>
+                <meta property="fc:frame" content="vNext" />
+                <meta property="fc:frame:image" content="${process.env.GATEWAY_URL}/ipfs/QmdHqdPuFrD5LTCtBrf6pio41m53cj54De3LS7qsxyVpNV/ur_in.jpg" />
+                <meta property="fc:frame:button:1" content="Visit dividoge.com" />
+                <meta property="fc:frame:button:1:action" content="post_redirect" />
+                <meta property="fc:frame:button:2" content="Join the $MILO channel" />
+                <meta property="fc:frame:button:2:action" content="post_redirect" />
+                <meta property="fc:frame:post_url" content="${process.env.BASE_URL}/api/end" />
+            </head>
+        </html>
+                `);
   } catch (e) {
     await kv.set<AddressModel>(
       uniqueId,
