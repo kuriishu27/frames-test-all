@@ -77,12 +77,12 @@ export default async function Home({
             {walletAddress !== undefined && (
               <div tw="flex flex-col">
                 <div tw="flex">
-                  <p style={{ color: "#F4D35E", fontSize: 40 }}>Thank you!</p>
+                  <p style={{ color: "#F4D35E", fontSize: 40 }}>
+                    {walletAddress} added to allowlist.
+                  </p>
                 </div>
                 <div tw="flex">
-                  <p style={{ color: "#F4D35E", fontSize: 40 }}>You will receive your NFT for the ham widget in the following address:
-                    {walletAddress}
-                  </p>
+                  <p style={{ color: "#F4D35E", fontSize: 40 }}>Limited to first 100</p>
                 </div>
               </div>
             )}
