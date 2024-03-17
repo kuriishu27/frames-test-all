@@ -17,7 +17,6 @@ export async function POST(req: NextRequest) {
   const uniqueId = `fid:${frameMessage.requesterFid}`;
 
   // Wait 10 seconds
-  await new Promise((resolve) => setTimeout(resolve, 10000));
 
   try {
     const randomNumber = Math.random();

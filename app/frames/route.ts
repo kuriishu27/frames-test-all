@@ -1,20 +1,58 @@
-import { PutBlobResult, put } from '@vercel/blob';
-import { NextResponse } from 'next/server';
 import { kv } from "@vercel/kv";
-import { getFrameMessage } from 'frames.js';
+import { FrameVersion, getFrameHtml, getFrameMessage, validateFrameMessage } from "frames.js";
+import { NextRequest, NextResponse } from "next/server";
+import { DEBUG_HUB_OPTIONS } from "../debug/constants";
+import { AddressModel } from "./types";
 
+const MAXIMUM_KV_RESULT_LIFETIME_IN_SECONDS = 2 * 60; // 2 minutes
 
-export async function POST(request: Request): Promise<NextResponse> {
-  const body = await request.json()
-  const frameActionPayload = body.untrustedData
-  const frameMessage = await getFrameMessage(frameActionPayload);
+export async function POST(req: NextRequest): Promise<Response> {
+  const body = await req.json();
 
-  await kv.set(frameMessage.requesterCustodyAddress, "allowlist");
-  const success = await kv.get(frameMessage.requesterCustodyAddress);
+  // Parse and validate the frame message
+  // const { isValid, message } = await validateFrameMessage(body);
+  // if (!isValid || !message) {
+  //   console.warn('invalid hereeeee')
+  //   return new NextResponse("Invalid message", { status: 400 });
+  // }
 
-  return NextResponse.json({
-    data: success,
-    status: "success",
-    timestamp: new Date().getTime(),
+  console.warn(body, 'body')
+  // verify independently
+  const frameMessage = await getFrameMessage(body.postBody, {
+    ...DEBUG_HUB_OPTIONS,
   });
+  console.warn(frameMessage, 'hereeee')
+  const uniqueId = `fid:${frameMessage.requesterFid}`;
+
+  try {
+
+    const walletAddress = frameMessage.requesterCustodyAddress
+    await kv.set<AddressModel>(
+      uniqueId,
+      {
+        data: walletAddress,
+        status: "success",
+        timestamp: new Date().getTime(),
+      },
+      { ex: MAXIMUM_KV_RESULT_LIFETIME_IN_SECONDS }
+    );
+
+    return NextResponse.json({
+      data: walletAddress,
+      status: "success",
+      timestamp: new Date().getTime(),
+    });
+  } catch (e) {
+    await kv.set<AddressModel>(
+      uniqueId,
+      {
+        error: String(e),
+        status: "error",
+        timestamp: new Date().getTime(),
+      },
+      { ex: MAXIMUM_KV_RESULT_LIFETIME_IN_SECONDS }
+    );
+    // Handle errors
+    return NextResponse.json({ message: e }, { status: 500 });
+  }
 }
