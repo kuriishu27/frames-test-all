@@ -78,7 +78,7 @@ export default async function Home({
               <div tw="flex flex-col">
                 <div tw="flex">
                   <p style={{ color: "#F4D35E", fontSize: 40 }}>
-                    {walletAddress} added to allowlist.
+                    {walletAddress.toLowerCase()} added to allowlist.
                   </p>
                 </div>
                 <div tw="flex">
