@@ -74,7 +74,7 @@ export default async function Home({
                 </div>
               </>
             }
-            {walletAddress && (
+            {walletAddress !== undefined && (
               <div tw="flex flex-col">
                 <div tw="flex">
                   <p style={{ color: "#F4D35E", fontSize: 40 }}>Thank you!</p>
