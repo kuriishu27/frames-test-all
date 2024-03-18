@@ -9,7 +9,7 @@ const MAXIMUM_KV_RESULT_LIFETIME_IN_SECONDS = 2 * 60; // 2 minutes
 export async function POST(req: NextRequest): Promise<Response> {
   const body = await req.json();
   // Parse and validate the frame message
-  const { isValid, message } = await validateFrameMessage(body.trustedData.messageBytes);
+  const { isValid, message } = await validateFrameMessage(body);
 
   if (!isValid || !message) {
     return new NextResponse(`
